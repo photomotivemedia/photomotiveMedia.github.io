@@ -9,6 +9,7 @@
 </head>
 <body>
 
+    <!-- Header / Navbar Section -->
     <header class="navbar">
         <div class="nav-container">
             <a href="index.html" class="logo-text">PHOTOMOTIVE</a>
@@ -30,6 +31,7 @@
     </header>
 
     <main class="main-content">
+        <!-- Hero Section -->
         <section class="hero">
             <div class="hero-content">
                 <h1>Automotive Photography & Videography</h1>
@@ -37,6 +39,7 @@
             </div>
         </section>
 
+        <!-- Featured Photos Showcase (Configured for Vertical Layout) -->
         <section class="portfolio-container">
             <h2 class="page-title">Featured Work</h2>
             <div class="image-grid vertical-grid">
@@ -52,13 +55,15 @@
             </div>
         </section>
 
+        <!-- Booking Section -->
         <section class="booking-section">
             <div class="booking-header">
                 <h2>Book a Session</h2>
                 <p>Fill out the details below to lock in a shoot.</p>
             </div>
 
-            <form action="https://formspree.io/f/mlgkzonv" method="POST" class="booking-form">
+            <!-- IMPORTANT: Replace YOUR_UNIQUE_CODE_HERE with your actual Formspree ID string -->
+            <form action="https://formspree.io/f/YOUR_UNIQUE_CODE_HERE" method="POST" class="booking-form">
                 
                 <div class="form-group">
                     <label for="name">Your Name</label>
@@ -80,12 +85,24 @@
                     <input type="text" id="car-info" name="car" placeholder="e.g., 2018 Subaru STI" required>
                 </div>
 
+                <!-- UPDATED: Interactive Map + Neighborhood Selection -->
                 <div class="form-group">
-                    <label>Shooting Base Location Radius</label>
-                    <p class="map-instruction">Sessions must be within a 20-minute bike ride of the marker location below:</p>
+                    <label>Shooting Radius (20-Min Bike Ride from Sobeys Cranston)</label>
+                    <p class="map-instruction">Use the map below to find a spot, then type your meetup location:</p>
                     <div class="map-wrapper">
-                        <iframe width="100%" height="250" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=-114.0044%2C50.8870%2C-113.9644%2C50.9120&amp;layer=mapnik&amp;marker=50.8995%2C-113.9844" style="border: 1px solid #2a2a2a; border-radius: 4px;"></iframe>
+                        <!-- Fully Interactive Google Map centered precisely on Cranston Sobeys -->
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2519.7424673891465!2d-113.98715872342171!3d50.89142707167909!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x53717462fe4379cf%3A0x63ce480b0fb00db5!2sSobeys%20-%20Cranston!5e0!3m2!1sen!2sca!4v1718480000000!5m2!1sen!2sca" 
+                            width="100%" 
+                            height="280" 
+                            style="border:1px solid #2a2a2a; border-radius: 4px;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
                     </div>
+                    <!-- This allows them to actually specify and choose the location -->
+                    <input type="text" id="shoot-location" name="selected_location" placeholder="e.g., Cranston Market parking lot, Seton park, etc." required style="margin-top: 10px;">
                 </div>
 
                 <div class="form-group">
@@ -106,8 +123,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="message">Shoot Details & Location Meeting Point</label>
-                    <textarea id="message" name="message" placeholder="Provide details on your build and your preferred spot within my biking radius..." rows="5"></textarea>
+                    <label for="message">Shoot Details</label>
+                    <textarea id="message" name="message" placeholder="Preferred specific spots, style of shots, or build details..." rows="5"></textarea>
                 </div>
 
                 <button type="submit" class="submit-btn">Submit Booking Request</button>

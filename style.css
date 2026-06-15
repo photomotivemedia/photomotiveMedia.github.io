@@ -271,11 +271,6 @@ body {
     overflow: hidden;
 }
 
-/* Custom dark mask adjustment to make map mix cleanly into deep theme */
-.map-wrapper iframe {
-    filter: invert(0.9) hue-rotate(180deg);
-}
-
 .booking-form input, 
 .booking-form select,
 .booking-form textarea {
