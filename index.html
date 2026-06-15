@@ -5,32 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Photomotive | Automotive Photography</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <header>
-        <nav>
-            <div class="logo">PHOTOMOTIVE</div>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="automotive.html">Automotive</a></li>
-                <li><a href="nature.html">Nature</a></li>
-                <li><a href="animals.html">Animals</a></li>
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo-text">PHOTOMOTIVE</a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li class="dropdown">
+                    <span class="dropbtn nav-links">
+                        <a href="#">Portfolio</a>
+                        <span class="arrow">▼</span>
+                    </span>
+                    <div class="dropdown-content">
+                        <a href="automotive.html">Automotive</a>
+                        <a href="nature.html">Nature</a>
+                        <a href="animals.html">Animals</a>
+                    </div>
+                </li>
             </ul>
-        </nav>
+        </div>
     </header>
 
     <main>
         <section class="hero">
-            <h1>Automotive Photography & Videography</h1>
-            <p>Capturing clean, high-quality street and track builds.</p>
+            <div class="hero-content">
+                <h1>Automotive Photography & Videography</h1>
+                <p>Capturing clean, high-quality street and track builds.</p>
+            </div>
         </section>
 
         <section class="booking-section">
-            <h2>Book a Session</h2>
-            <p>Fill out the details below to lock in a shoot.</p>
+            <div class="booking-header">
+                <h2>Book a Session</h2>
+                <p>Fill out the details below to lock in a shoot.</p>
+            </div>
 
-            <!-- IMPORTANT: Swap out YOUR_UNIQUE_CODE_HERE with your Formspree code string -->
             <form action="https://formspree.io/f/YOUR_UNIQUE_CODE_HERE" method="POST" class="booking-form">
                 
                 <div class="form-group">
@@ -64,24 +76,10 @@
                         <option value="" disabled selected>Select a time window...</option>
                         <option value="morning">Morning (8:00 AM - 12:00 PM)</option>
                         <option value="afternoon">Afternoon (12:00 PM - 4:00 PM)</option>
-                        <option value="golden-hour">Golden Hour / Sunset (Late Afternoon)</option>
+                        <option value="golden-hour">Golden Hour / Sunset</option>
                         <option value="night">Night Shoot / Rollers</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="message">Shoot Details</label>
-                    <textarea id="message" name="message" placeholder="Preferred locations, style of shots, or ideas..." rows="5"></textarea>
-                </div>
-
-                <button type="submit" class="submit-btn">Submit Booking Request</button>
-            </form>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2026 Photomotive. All rights reserved.</p>
-    </footer>
-
-</body>
-</html>
+                    <label for="message">Shoot Details</label
