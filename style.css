@@ -100,7 +100,7 @@ body {
     border: 1px solid #222;
     border-radius: 4px;
     margin-top: 10px;
-    z-index: 20;
+    z-index: 1000; /* Fixed layered dropdown interaction priority */
 }
 
 .dropdown-content a {
@@ -264,11 +264,11 @@ body {
     margin-bottom: 4px;
 }
 
-.map-wrapper {
-    width: 100%;
-    background-color: var(--input-bg);
-    border-radius: 4px;
-    overflow: hidden;
+/* Clearer interface popups layout rule adjustments inside Leaflet maps */
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+    background: #141414 !important;
+    color: #ffffff !important;
+    border: 1px solid #2a2a2a;
 }
 
 .booking-form input, 
@@ -292,6 +292,13 @@ body {
 .booking-form select:focus,
 .booking-form textarea:focus {
     border-color: #666;
+}
+
+/* Ensure read-only selection boxes feel distinct */
+.booking-form input[readonly] {
+    cursor: default;
+    border-color: #1a1a1a;
+    color: #888;
 }
 
 .booking-form select {
