@@ -281,7 +281,9 @@ body {
     font-weight: 600;
 }
 
+/* Style for Inputs, Dropdowns, and Textareas */
 .booking-form input, 
+.booking-form select,
 .booking-form textarea {
     background-color: var(--input-bg);
     border: 1px solid var(--border-color);
@@ -291,12 +293,33 @@ body {
     font-size: 0.95rem;
     border-radius: 4px;
     outline: none;
+    width: 100%;
     transition: border-color 0.3s ease;
 }
 
 .booking-form input:focus, 
+.booking-form select:focus,
 .booking-form textarea:focus {
     border-color: #555;
+}
+
+/* Dropdown arrow customization */
+.booking-form select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='%23a0a0a0'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+}
+
+/* Calendar popup white icon fix */
+.booking-form input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(0.6);
+    cursor: pointer;
+}
+
+.booking-form textarea {
+    resize: vertical;
 }
 
 .submit-btn {

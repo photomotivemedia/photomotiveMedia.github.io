@@ -30,7 +30,7 @@
             <h2>Book a Session</h2>
             <p>Fill out the details below to lock in a shoot.</p>
 
-            <!-- Make sure to replace YOUR_UNIQUE_CODE_HERE with your actual Formspree ID -->
+            <!-- IMPORTANT: Swap out YOUR_UNIQUE_CODE_HERE with your Formspree code string -->
             <form action="https://formspree.io/f/YOUR_UNIQUE_CODE_HERE" method="POST" class="booking-form">
                 
                 <div class="form-group">
@@ -53,13 +53,11 @@
                     <input type="text" id="car-info" name="car" placeholder="e.g., 2018 Subaru STI" required>
                 </div>
 
-                <!-- NEW: Date Picker Element -->
                 <div class="form-group">
                     <label for="shoot-date">Preferred Date</label>
                     <input type="date" id="shoot-date" name="preferred_date" required>
                 </div>
 
-                <!-- NEW: Time Window Selection Dropdown -->
                 <div class="form-group">
                     <label for="shoot-time">Preferred Time Window</label>
                     <select id="shoot-time" name="preferred_time" required>
