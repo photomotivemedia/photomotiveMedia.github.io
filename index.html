@@ -43,43 +43,45 @@
         <section id="booking" class="booking-section">
             <div class="booking-header">
                 <h2>Book a Session</h2>
-                <p>Fill out the fields below to schedule a test shoot or feature.</p>
+                <p>Fill out the fields below to schedule a shoot or car feature.</p>
             </div>
-            <form class="booking-form" onsubmit="event.preventDefault(); alert('Test Form Submitted Successfully!');">
+            
+            <form class="booking-form" action="https://formsubmit.co/mailtony20@gmail.com" method="POST">
+                
+                <input type="hidden" name="_captcha" value="false">
+                
+                <input type="hidden" name="_next" value="index.html">
+
                 <div class="form-group">
                     <label for="name">Full Name</label>
-                    <input type="text" id="name" name="name" placeholder="John Doe" required>
+                    <input type="text" id="name" name="Name" placeholder="John Doe" required>
                 </div>
 
                 <div class="form-group-row">
                     <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" placeholder="name@example.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone" placeholder="(403) 555-0123">
-                    </div>
-                </div>
+                        <label for="email">Email Address</
 
-                <div class="form-group">
-                    <label for="location">Preferred Shoot Location</label>
-                    <input type="text" id="location" name="location" placeholder="e.g., Downtown Parkade, Kananaskis, etc." required>
-                </div>
 
-                <div class="form-group">
-                    <label for="notes">Shoot Details / Message</label>
-                    <textarea id="notes" name="notes" rows="5" placeholder="Tell me about your car or what kind of project you have in mind..."></textarea>
-                </div>
+                            <section class="booking-section">
+    <h2>Book a Session</h2>
+    <p>Let's get some clean shots of your build. Fill out the details below to lock in a shoot.</p>
 
-                <button type="submit" class="submit-btn">Submit Request</button>
-            </form>
-        </section>
-    </main>
+    <form action="https://formspree.io/f/mlgkzonv" method="POST" class="booking-form">
+        
+        <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" placeholder="First and last name" required>
+        </div>
 
-    <footer>
-        <p>&copy; 2026 Photography. All Rights Reserved.</p>
-    </footer>
+        <div class="form-group">
+            <label for="instagram">Instagram Handle NOT THIS YET</label>
+            <input type="text" id="instagram" name="instagram" placeholder="@yourhandle (so I can tag you)">
+        </div>
 
-</body>
-</html>
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="name@example.com" required>
+        </div>
+
+        <div class="form-group">
+            <label for="car-info">Vehicle Year, Make, & Model</label>
