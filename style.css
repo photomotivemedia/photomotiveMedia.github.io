@@ -193,14 +193,13 @@ body {
     box-shadow: 0 4px 15px rgba(0,0,0,0.5);
 }
 
-/* Specialized Grid Settings for Vertical Layout */
 .vertical-grid {
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
 }
 
 .vertical-grid .grid-item img {
     width: 100%;
-    height: 420px; /* Forces optimal height framing for portrait photography */
+    height: 420px; 
     object-fit: cover;
     display: block;
     transition: transform 0.5s ease;
@@ -257,6 +256,24 @@ body {
     letter-spacing: 1px;
     color: var(--text-muted);
     font-weight: 600;
+}
+
+.map-instruction {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+}
+
+.map-wrapper {
+    width: 100%;
+    background-color: var(--input-bg);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+/* Custom dark mask adjustment to make map mix cleanly into deep theme */
+.map-wrapper iframe {
+    filter: invert(0.9) hue-rotate(180deg);
 }
 
 .booking-form input, 
@@ -345,7 +362,7 @@ footer {
     }
 
     .vertical-grid .grid-item img {
-        height: 480px; /* Slightly taller for standalone presentation on phones */
+        height: 480px; 
     }
 
     .booking-section {

@@ -81,12 +81,11 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="shoot-location">Shoot Location</label>
-                    <select id="shoot-location" name="location" required>
-                        <option value="" disabled selected>Select a location option...</option>
-                        <option value="within-radius">Within 20-min bike ride of 45 Cranberry Cove SE</option>
-                        <option value="custom-location">Other location (Specify in details below)</option>
-                    </select>
+                    <label>Shooting Base Location Radius</label>
+                    <p class="map-instruction">Sessions must be within a 20-minute bike ride of the marker location below:</p>
+                    <div class="map-wrapper">
+                        <iframe width="100%" height="250" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=-114.0044%2C50.8870%2C-113.9644%2C50.9120&amp;layer=mapnik&amp;marker=50.8995%2C-113.9844" style="border: 1px solid #2a2a2a; border-radius: 4px;"></iframe>
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -107,8 +106,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="message">Shoot Details</label>
-                    <textarea id="message" name="message" placeholder="Preferred spots within radius, specific style of shots, or build details..." rows="5"></textarea>
+                    <label for="message">Shoot Details & Location Meeting Point</label>
+                    <textarea id="message" name="message" placeholder="Provide details on your build and your preferred spot within my biking radius..." rows="5"></textarea>
                 </div>
 
                 <button type="submit" class="submit-btn">Submit Booking Request</button>
