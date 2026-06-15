@@ -25,16 +25,13 @@ body {
     line-height: 1.6;
 }
 
-/* --- Header / Navbar --- */
+/* --- Header / Navbar (Fixed Block Layer Conflict) --- */
 .navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
-    background-color: rgba(11, 11, 11, 0.95);
-    backdrop-filter: blur(10px);
-    z-index: 1000;
+    background-color: #0b0b0b;
     border-bottom: 1px solid #1a1a1a;
+    position: relative;
+    z-index: 10;
 }
 
 .nav-container {
@@ -74,7 +71,7 @@ body {
     color: var(--text-main);
 }
 
-/* --- Dropdown Layout Adjustments --- */
+/* --- Dropdown --- */
 .dropdown {
     position: relative;
     display: inline-block;
@@ -103,7 +100,7 @@ body {
     border: 1px solid #222;
     border-radius: 4px;
     margin-top: 10px;
-    z-index: 1001;
+    z-index: 20;
 }
 
 .dropdown-content a {
@@ -129,16 +126,21 @@ body {
     transform: rotate(180deg);
 }
 
-/* --- Hero Section Fixes (Separates overlapping text items) --- */
+/* --- Main Layout Wrapper --- */
+.main-content {
+    position: relative;
+    z-index: 1;
+}
+
+/* --- Hero Section --- */
 .hero {
-    height: 50vh;
+    height: 40vh;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     padding: 40px 20px;
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(11,11,11,1)), url('https://via.placeholder.com/1920x1080') no-repeat center center/cover;
-    margin-top: 65px;
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(11,11,11,1));
 }
 
 .hero-content {
@@ -148,7 +150,7 @@ body {
 }
 
 .hero-content h1 {
-    font-size: 2.8rem;
+    font-size: 2.5rem;
     font-weight: 700;
     letter-spacing: 4px;
     color: var(--text-main);
@@ -163,7 +165,7 @@ body {
 /* --- Booking Section Style --- */
 .booking-section {
     max-width: 600px;
-    margin: 40px auto 80px auto;
+    margin: 20px auto 80px auto;
     padding: 40px;
     background-color: var(--card-bg);
     border-radius: 8px;
@@ -209,7 +211,7 @@ body {
     font-weight: 600;
 }
 
-/* Inputs, Textareas, AND Select Dropdowns Styled Uniformly */
+/* Form Elements Active Input Target Base Fix */
 .booking-form input, 
 .booking-form select,
 .booking-form textarea {
@@ -222,16 +224,18 @@ body {
     border-radius: 4px;
     outline: none;
     width: 100%;
+    position: relative;
+    z-index: 5;
     transition: border-color 0.3s ease;
 }
 
 .booking-form input:focus, 
 .booking-form select:focus,
 .booking-form textarea:focus {
-    border-color: #555;
+    border-color: #666;
 }
 
-/* Dropdown Arrow Fix */
+/* Select Dropdown custom styling overrides */
 .booking-form select {
     cursor: pointer;
     appearance: none;
@@ -240,7 +244,7 @@ body {
     background-position: right 16px center;
 }
 
-/* Date picker popup icon alignment */
+/* Calendar Date indicator visibility styling */
 .booking-form input[type="date"]::-webkit-calendar-picker-indicator {
     filter: invert(0.7);
     cursor: pointer;
@@ -261,6 +265,7 @@ body {
     letter-spacing: 2px;
     border-radius: 4px;
     cursor: pointer;
+    z-index: 5;
     transition: background-color 0.3s ease;
     margin-top: 10px;
 }
