@@ -25,7 +25,7 @@ body {
     line-height: 1.6;
 }
 
-/* --- Header / Navbar (Fixed Block Layer Conflict) --- */
+/* --- Header / Navbar --- */
 .navbar {
     width: 100%;
     background-color: #0b0b0b;
@@ -134,7 +134,7 @@ body {
 
 /* --- Hero Section --- */
 .hero {
-    height: 40vh;
+    height: 35vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -162,10 +162,58 @@ body {
     letter-spacing: 1px;
 }
 
+/* --- Portfolio Galleries Layout --- */
+.portfolio-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.page-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+    border-left: 4px solid #fff;
+    padding-left: 15px;
+}
+
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.grid-item {
+    background-color: var(--card-bg);
+    overflow: hidden;
+    border-radius: 6px;
+    border: 1px solid #1c1c1c;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+
+/* Specialized Grid Settings for Vertical Layout */
+.vertical-grid {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+
+.vertical-grid .grid-item img {
+    width: 100%;
+    height: 420px; /* Forces optimal height framing for portrait photography */
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.grid-item:hover img {
+    transform: scale(1.04);
+}
+
 /* --- Booking Section Style --- */
 .booking-section {
     max-width: 600px;
-    margin: 20px auto 80px auto;
+    margin: 60px auto 80px auto;
     padding: 40px;
     background-color: var(--card-bg);
     border-radius: 8px;
@@ -211,7 +259,6 @@ body {
     font-weight: 600;
 }
 
-/* Form Elements Active Input Target Base Fix */
 .booking-form input, 
 .booking-form select,
 .booking-form textarea {
@@ -235,7 +282,6 @@ body {
     border-color: #666;
 }
 
-/* Select Dropdown custom styling overrides */
 .booking-form select {
     cursor: pointer;
     appearance: none;
@@ -244,7 +290,6 @@ body {
     background-position: right 16px center;
 }
 
-/* Calendar Date indicator visibility styling */
 .booking-form input[type="date"]::-webkit-calendar-picker-indicator {
     filter: invert(0.7);
     cursor: pointer;
@@ -295,6 +340,14 @@ footer {
         font-size: 1.8rem;
     }
     
+    .vertical-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .vertical-grid .grid-item img {
+        height: 480px; /* Slightly taller for standalone presentation on phones */
+    }
+
     .booking-section {
         padding: 20px;
         margin: 20px 15px 60px 15px;
