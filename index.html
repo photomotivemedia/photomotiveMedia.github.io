@@ -7,8 +7,6 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -45,13 +43,13 @@
             <h2 class="page-title">Featured Work</h2>
             <div class="image-grid vertical-grid">
                 <div class="grid-item">
-                    <img src="car1.jpg" alt="Featured Vertical Car 1">
+                    <img src="images/untitled-1-14.jpg" alt="Featured Vertical Car 1">
                 </div>
                 <div class="grid-item">
-                    <img src="car2.jpg" alt="Featured Vertical Car 2">
+                    <img src="images/untitled-1-4.jpg" alt="Featured Vertical Car 2">
                 </div>
                 <div class="grid-item">
-                    <img src="car3.jpg" alt="Featured Vertical Car 3">
+                    <img src="images/untitled-1-6.jpg" alt="Featured Vertical Car 3">
                 </div>
             </div>
         </section>
@@ -85,12 +83,17 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Shooting Radius (25-Min Walk from Sobeys Cranston)</label>
-                    <p class="map-instruction">Click inside the shaded boundary circle to pick your exact shootout target spot:</p>
-                    
-                    <div id="radius-map"></div>
-                    
-                    <input type="text" id="shoot-location" name="selected_location" placeholder="Click on the map above to select a location..." readonly required style="margin-top: 10px;">
+                    <label for="shoot-zone">Preferred Shooting Area</label>
+                    <select id="shoot-zone" name="shooting_zone" required>
+                        <option value="" disabled selected>Select a preferred community...</option>
+                        <option value="Cranston">Cranston (Preferred)</option>
+                        <option value="Seton">Seton (Preferred)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="specific-spot">Specific Spot or Landmark</label>
+                    <input type="text" id="specific-spot" name="specific_spot" placeholder="e.g., Sobeys lot, parkade top floor, open field, etc.">
                 </div>
 
                 <div class="form-group">
@@ -112,7 +115,7 @@
 
                 <div class="form-group">
                     <label for="message">Shoot Details</label>
-                    <textarea id="message" name="message" placeholder="Preferred specific spots within the circle, style of shots, or build details..." rows="5"></textarea>
+                    <textarea id="message" name="message" placeholder="Style of shots, specific look you want, or build modifications list..." rows="5"></textarea>
                 </div>
 
                 <button type="submit" class="submit-btn">Submit Booking Request</button>
@@ -124,54 +127,5 @@
         <p>&copy; 2026 Photomotive. All rights reserved.</p>
     </footer>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    <script>
-        // Safeguard maps execution with a DOMContent event layout checker
-        document.addEventListener("DOMContentLoaded", function() {
-            // Sobeys Cranston Base Coordinates
-            const baseCoords = [50.8922, -113.9835];
-            
-            // Map configuration array
-            const map = L.map('radius-map', {
-                scrollWheelZoom: false // Prevents the map engine from hijacking mouse scrolling on forms
-            }).setView(baseCoords, 14);
-
-            // Load premium dark design backdrop map tiles
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-                attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
-            }).addTo(map);
-
-            // Add Base Target Anchor Marker Pin
-            L.marker(baseCoords).addTo(map)
-                .bindPopup('<b>Sobeys Cranston</b><br>Shooting Base Station Center.');
-
-            // Draw clean 2000 meter (2km) Radius Area Outline Ring
-            const radiusCircle = L.circle(baseCoords, {
-                color: '#ffffff',
-                fillColor: '#ffffff',
-                fillOpacity: 0.1,
-                radius: 2000 
-            }).addTo(map);
-
-            let userSelectionMarker = null;
-
-            // Interactive Map Input Event Click Handler
-            map.on('click', function(e) {
-                const clickDistance = map.distance(e.latlng, baseCoords);
-
-                // Confirm interaction registers safely inside radius circle
-                if (clickDistance <= 2000) {
-                    if (userSelectionMarker) {
-                        map.removeLayer(userSelectionMarker);
-                    }
-                    userSelectionMarker = L.marker(e.latlng).addTo(map);
-                    const formattedCoords = `Lat: ${e.latlng.lat.toFixed(4)}, Lng: ${e.latlng.lng.toFixed(4)} (Within Cranston Walking Zone)`;
-                    document.getElementById('shoot-location').value = formattedCoords;
-                } else {
-                    alert("Location is outside my 25-minute walking radius! Please select a spot inside the shaded circular boundary line.");
-                }
-            });
-        });
-    </script>
 </body>
 </html>
