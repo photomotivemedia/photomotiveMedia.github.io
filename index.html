@@ -4,10 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Photomotive | Automotive Photography</title>
-    <!-- Leaflet Map CSS Styling Layer -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-    <link rel="stylesheet" href="style.css">
+    
+    <!-- 1. Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- 2. Leaflet Map CSS (Loaded before our custom style to prevent layout overwrites) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    
+    <!-- 3. Main Custom Stylesheet -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -18,9 +23,8 @@
             <ul class="nav-links">
                 <li><a href="index.html" class="active">Home</a></li>
                 <li class="dropdown">
-                    <span class="dropbtn nav-links">
-                        <a href="#">Portfolio</a>
-                        <span class="arrow">▼</span>
+                    <span class="dropbtn">
+                        Portfolio <span class="arrow">▼</span>
                     </span>
                     <div class="dropdown-content">
                         <a href="automotive.html">Automotive</a>
@@ -41,18 +45,19 @@
             </div>
         </section>
 
-        <!-- Featured Photos Showcase (Configured for Vertical Layout) -->
+        <!-- Featured Photos Showcase -->
         <section class="portfolio-container">
             <h2 class="page-title">Featured Work</h2>
             <div class="image-grid vertical-grid">
                 <div class="grid-item">
+                    <!-- Note: Ensure car1.jpg is uploaded to your main GitHub folder -->
                     <img src="images/untitled-1-14.jpg" alt="Featured Vertical Car 1">
                 </div>
                 <div class="grid-item">
                     <img src="images/untitled-1-3.jpg" alt="Featured Vertical Car 2">
                 </div>
                 <div class="grid-item">
-                    <img src="images/untitled-1-6.jpg" alt="Featured Vertical Car 3">
+                    <img src="images/untitled-1-4.jpg" alt="Featured Vertical Car 3">
                 </div>
             </div>
         </section>
@@ -64,7 +69,7 @@
                 <p>Fill out the details below to lock in a shoot.</p>
             </div>
 
-            <!-- IMPORTANT: Replace YOUR_UNIQUE_CODE_HERE with your actual Formspree ID string -->
+            <!-- IMPORTANT: Replace YOUR_UNIQUE_CODE_HERE with your Formspree ID -->
             <form action="https://formspree.io/f/YOUR_UNIQUE_CODE_HERE" method="POST" class="booking-form">
                 
                 <div class="form-group">
@@ -94,7 +99,6 @@
                     
                     <div id="radius-map" style="height: 320px; border-radius: 4px; border: 1px solid #2a2a2a;"></div>
                     
-                    <!-- This input box autofills when the user clicks inside the map zone -->
                     <input type="text" id="shoot-location" name="selected_location" placeholder="Click on the map above to select a location..." readonly required style="margin-top: 10px;">
                 </div>
 
@@ -129,54 +133,47 @@
         <p>&copy; 2026 Photomotive. All rights reserved.</p>
     </footer>
 
-    <!-- Leaflet Script & Interaction Configuration Core -->
+    <!-- Leaflet Maps Engine Scripts -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script>
-        // Exact Coords for Sobeys Cranston Market
-        const baseCoords = [50.8922, -113.9835];
-        
-        // 1. Initialize map view zoomed right into Cranston
-        const map = L.map('radius-map').setView(baseCoords, 14);
+        // Wrap everything in an event listener to guarantee layout structures are loaded before firing the map
+        document.addEventListener("DOMContentLoaded", function() {
+            const baseCoords = [50.8922, -113.9835];
+            
+            const map = L.map('radius-map', {
+                scrollWheelZoom: false // Prevents the map from hijacking your scroll while browsing the form
+            }).setView(baseCoords, 14);
 
-        // 2. Load dark map background tiles
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-            attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
-        }).addTo(map);
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
+            }).addTo(map);
 
-        // 3. Mark the center point address
-        L.marker(baseCoords).addTo(map)
-            .bindPopup('<b>Sobeys Cranston</b><br>Shooting Base Station Center.')
-            .openPopup();
+            L.marker(baseCoords).addTo(map)
+                .bindPopup('<b>Sobeys Cranston</b><br>Shooting Base Station Center.');
 
-        // 4. Create the 25-min walking circle (2000 meters / 2km radius)
-        const radiusCircle = L.circle(baseCoords, {
-            color: '#ffffff',
-            fillColor: '#ffffff',
-            fillOpacity: 0.1,
-            radius: 2000 
-        }).addTo(map);
+            const radiusCircle = L.circle(baseCoords, {
+                color: '#ffffff',
+                fillColor: '#ffffff',
+                fillOpacity: 0.1,
+                radius: 2000 
+            }).addTo(map);
 
-        let userSelectionMarker = null;
+            let userSelectionMarker = null;
 
-        // 5. Handle user selecting points within the circle
-        map.on('click', function(e) {
-            const clickDistance = map.distance(e.latlng, baseCoords);
+            map.on('click', function(e) {
+                const clickDistance = map.distance(e.latlng, baseCoords);
 
-            // Verify click lands inside the active walking boundary limit
-            if (clickDistance <= 2000) {
-                if (userSelectionMarker) {
-                    map.removeLayer(userSelectionMarker);
+                if (clickDistance <= 2000) {
+                    if (userSelectionMarker) {
+                        map.removeLayer(userSelectionMarker);
+                    }
+                    userSelectionMarker = L.marker(e.latlng).addTo(map);
+                    const formattedCoords = `Lat: ${e.latlng.lat.toFixed(4)}, Lng: ${e.latlng.lng.toFixed(4)} (Within Cranston Walking Zone)`;
+                    document.getElementById('shoot-location').value = formattedCoords;
+                } else {
+                    alert("Location is outside my 25-minute walking radius! Please select a spot inside the shaded circular boundary line.");
                 }
-                
-                // Drop custom marker on selection point
-                userSelectionMarker = L.marker(e.latlng).addTo(map);
-                
-                // Format coordinates cleanly for form delivery
-                const formattedCoords = `Lat: ${e.latlng.lat.toFixed(4)}, Lng: ${e.latlng.lng.toFixed(4)} (Within Cranston Walking Zone)`;
-                document.getElementById('shoot-location').value = formattedCoords;
-            } else {
-                alert("Location is outside my 25-minute walking radius! Please select a spot inside the shaded circular boundary line.");
-            }
+            });
         });
     </script>
 </body>
