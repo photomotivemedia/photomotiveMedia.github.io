@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Photomotive | Automotive Photography</title>
+    <!-- Leaflet Map CSS Styling Layer -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
+    <!-- Header / Navbar Section -->
     <header class="navbar">
         <div class="nav-container">
             <a href="index.html" class="logo-text">PHOTOMOTIVE</a>
@@ -31,6 +33,7 @@
     </header>
 
     <main class="main-content">
+        <!-- Hero Section -->
         <section class="hero">
             <div class="hero-content">
                 <h1>Automotive Photography & Videography</h1>
@@ -38,6 +41,7 @@
             </div>
         </section>
 
+        <!-- Featured Photos Showcase (Configured for Vertical Layout) -->
         <section class="portfolio-container">
             <h2 class="page-title">Featured Work</h2>
             <div class="image-grid vertical-grid">
@@ -53,12 +57,14 @@
             </div>
         </section>
 
+        <!-- Booking Section -->
         <section class="booking-section">
             <div class="booking-header">
                 <h2>Book a Session</h2>
                 <p>Fill out the details below to lock in a shoot.</p>
             </div>
 
+            <!-- IMPORTANT: Replace YOUR_UNIQUE_CODE_HERE with your actual Formspree ID string -->
             <form action="https://formspree.io/f/YOUR_UNIQUE_CODE_HERE" method="POST" class="booking-form">
                 
                 <div class="form-group">
@@ -81,12 +87,14 @@
                     <input type="text" id="car-info" name="car" placeholder="e.g., 2018 Subaru STI" required>
                 </div>
 
+                <!-- Live Selectable Radius Map Container -->
                 <div class="form-group">
-                    <label>Shooting Radius (25-Min Walk from 45 Cranberry Cove SE)</label>
-                    <p class="map-instruction">Click inside the circle below to pick your exact shootout location:</p>
+                    <label>Shooting Radius (25-Min Walk from Sobeys Cranston)</label>
+                    <p class="map-instruction">Click the shaded zone to pick a spot, or click our recommended hot-spot pin:</p>
                     
                     <div id="radius-map" style="height: 320px; border-radius: 4px; border: 1px solid #2a2a2a;"></div>
                     
+                    <!-- This input box autofills when the user clicks inside the map zone -->
                     <input type="text" id="shoot-location" name="selected_location" placeholder="Click on the map above to select a location..." readonly required style="margin-top: 10px;">
                 </div>
 
@@ -121,35 +129,50 @@
         <p>&copy; 2026 Photomotive. All rights reserved.</p>
     </footer>
 
+    <!-- Leaflet Script & Interaction Configuration Core -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script>
-        // Exact Coords for 45 Cranberry Cove SE
-        const baseCoords = [50.8994, -113.9845];
+        // Exact Coords for Sobeys Cranston Market Base Station
+        const baseCoords = [50.8922, -113.9835];
         
-        // 1. Initialize map view zoomed right into Cranston
-        const map = L.map('radius-map').setView(baseCoords, 14);
+        // Exact Coords for the Recommended Seton Parkade Rooftop Spot
+        const setonParkadeCoords = [50.8818, -113.9628];
+        
+        // 1. Initialize map view centered between Cranston and Seton
+        const map = L.map('radius-map').setView([50.8880, -113.9730], 14);
 
         // 2. Load dark map background tiles
         L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
             attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
         }).addTo(map);
 
-        // 3. Mark the center point address
+        // 3. Mark the center base station (Sobeys)
         L.marker(baseCoords).addTo(map)
-            .bindPopup('<b>45 Cranberry Cove SE</b><br>Shooting Base Station Center.')
-            .openPopup();
+            .bindPopup('<b>Sobeys Cranston</b><br>Shooting Base Station Center.');
 
-        // 4. Create the 25-min walking circle (roughly 2000 meters / 2km radius)
+        // 4. Create the 25-min walking circle (2000 meters radius)
         const radiusCircle = L.circle(baseCoords, {
             color: '#ffffff',
             fillColor: '#ffffff',
-            fillOpacity: 0.1,
+            fillOpacity: 0.08,
             radius: 2000 
         }).addTo(map);
 
         let userSelectionMarker = null;
 
-        // 5. Handle user selecting points within the circle
+        // 5. Add Recommended Feature Spot: Seton Parkade
+        const setonMarker = L.marker(setonParkadeCoords).addTo(map)
+            .bindPopup('<b>🔥 Recommended Hot-Spot:</b><br>Seton Rooftop Parkade<br><span style="font-size:11px;color:#aaa;">Click to select this exact location</span>');
+
+        // Automatically select the parkade if they click its pin popup icon
+        setonMarker.on('click', function() {
+            if (userSelectionMarker) {
+                map.removeLayer(userSelectionMarker);
+            }
+            document.getElementById('shoot-location').value = "Seton Rooftop Parkade (3815 Front St SE)";
+        });
+
+        // 6. Handle freeform user selecting points anywhere within the circle
         map.on('click', function(e) {
             const clickDistance = map.distance(e.latlng, baseCoords);
 
@@ -163,10 +186,10 @@
                 userSelectionMarker = L.marker(e.latlng).addTo(map);
                 
                 // Format coordinates cleanly for form delivery
-                const formattedCoords = `Lat: ${e.latlng.lat.toFixed(4)}, Lng: ${e.latlng.lng.toFixed(4)} (Within Walking Zone)`;
+                const formattedCoords = `Lat: ${e.latlng.lat.toFixed(4)}, Lng: ${e.latlng.lng.toFixed(4)} (Custom Spot Within Zone)`;
                 document.getElementById('shoot-location').value = formattedCoords;
             } else {
-                alert("Location is outside my 25-minute walking radius! Please select a spot inside the shaded circular boundary line.");
+                alert("Location is outside my 25-minute walking radius! Please select a spot inside the shaded circular boundary line or choose the recommended Seton Parkade pin.");
             }
         });
     </script>
