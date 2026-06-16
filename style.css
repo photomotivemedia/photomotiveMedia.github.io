@@ -100,7 +100,7 @@ body {
     border: 1px solid #222;
     border-radius: 4px;
     margin-top: 10px;
-    z-index: 1000; /* Fixed layered dropdown interaction priority */
+    z-index: 1000;
 }
 
 .dropdown-content a {
@@ -264,7 +264,6 @@ body {
     margin-bottom: 4px;
 }
 
-/* Clearer interface popups layout rule adjustments inside Leaflet maps */
 .leaflet-popup-content-wrapper, .leaflet-popup-tip {
     background: #141414 !important;
     color: #ffffff !important;
@@ -294,7 +293,6 @@ body {
     border-color: #666;
 }
 
-/* Ensure read-only selection boxes feel distinct */
 .booking-form input[readonly] {
     cursor: default;
     border-color: #1a1a1a;
