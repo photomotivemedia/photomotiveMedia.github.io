@@ -25,13 +25,15 @@ body {
     line-height: 1.6;
 }
 
-/* --- Header / Navbar --- */
+/* --- Fixed Header / Navbar --- */
 .navbar {
     width: 100%;
     background-color: #0b0b0b;
     border-bottom: 1px solid #1a1a1a;
-    position: relative;
-    z-index: 10;
+    position: fixed; /* Keeps navbar anchored at the top while scrolling */
+    top: 0;
+    left: 0;
+    z-index: 9999; /* Higher than any map canvas layers to prevent freezing */
 }
 
 .nav-container {
@@ -71,7 +73,7 @@ body {
     color: var(--text-main);
 }
 
-/* --- Dropdown --- */
+/* --- Robust Dropdown Engine --- */
 .dropdown {
     position: relative;
     display: inline-block;
@@ -82,6 +84,15 @@ body {
     display: flex;
     align-items: center;
     gap: 5px;
+    color: var(--text-muted);
+    font-weight: 400;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+}
+
+.dropdown:hover .dropbtn {
+    color: var(--text-main);
 }
 
 .arrow {
@@ -94,13 +105,15 @@ body {
     display: none;
     position: absolute;
     right: 0;
+    top: 100%; /* Forces menu box to drop cleanly below button frame */
     background-color: #141414;
     min-width: 160px;
-    box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.6);
+    box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.8);
     border: 1px solid #222;
     border-radius: 4px;
     margin-top: 10px;
-    z-index: 1000;
+    z-index: 10000; /* Guarantees drop links stay on top of map boxes */
+    padding: 5px 0;
 }
 
 .dropdown-content a {
@@ -118,6 +131,7 @@ body {
     color: var(--text-main);
 }
 
+/* Displays dropdown immediately upon hover focus */
 .dropdown:hover .dropdown-content {
     display: block;
 }
@@ -130,6 +144,7 @@ body {
 .main-content {
     position: relative;
     z-index: 1;
+    padding-top: 80px; /* Essential! Prevents fixed header from cutting off hero text */
 }
 
 /* --- Hero Section --- */
@@ -264,6 +279,11 @@ body {
     margin-bottom: 4px;
 }
 
+/* Safe Map Stack Management Overrides */
+#radius-map {
+    z-index: 1 !important; /* Low layer rank restricts the map box beneath drop-down overlays */
+}
+
 .leaflet-popup-content-wrapper, .leaflet-popup-tip {
     background: #141414 !important;
     color: #ffffff !important;
@@ -348,6 +368,14 @@ footer {
 
 /* --- Mobile Responsiveness --- */
 @media (max-width: 768px) {
+    .navbar {
+        position: static; /* Fluid flow setup for cleaner tracking on mobile viewports */
+    }
+
+    .main-content {
+        padding-top: 0;
+    }
+
     .nav-container {
         flex-direction: column;
         gap: 15px;
